@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добавить экспонат</h1>
+<form method="POST">
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="description">Описание:</label>
+    <textarea id="description" name="description" required></textarea><br>
+
+    <label for="species">Вид:</label>
+    <input type="text" id="species" name="species" required><br>
+
+    <label for="hall_id">Зал:</label>
+    <select id="hall_id" name="hall_id" required>
+        {% for hall in halls %}
+            <option value="{{ hall.id }}">{{ hall.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Добавить экспонат</button>
+</form>
+{% endblock %}

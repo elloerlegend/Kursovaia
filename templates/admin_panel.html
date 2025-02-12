@@ -1,0 +1,93 @@
+{% block content %}
+<div class="admin-panel">
+    {% if current_user.username == 'admin' and current_user.email == 'admin@gmail.com' %}
+    <h1>Админ-панель</h1>
+
+    <div class="admin-actions">
+        <a href="{{ url_for('add_exhibit') }}" class="btn btn-primary">
+            Добавить экспонат
+        </a>
+
+        <a href="{{ url_for('add_event') }}" class="btn btn-primary">
+            Добавить мероприятие
+        </a>
+
+        <a href="{{ url_for('manage_reviews') }}" class="btn btn-secondary">
+            Управление отзывами
+        </a>
+    </div>
+
+    <div class="reviews-list">
+        {% for review in reviews %}
+        <div class="review-item">
+            <p>{{ review.content }}</p>
+            <small>Оставлен: {{ review.user.username }}</small>
+            <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h1>Доступ запрещен</h1>
+    <p>У вас нет прав для просмотра этой страницы.</p>
+    {% endif %}
+</div>
+
+<style>
+    .admin-panel {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f8f9fa; /* Добавляем светлый фон для панели */
+        border-radius: 10px; /* Слегка скруглим углы */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для панели */
+    }
+
+    .admin-actions {
+        margin-bottom: 30px;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .admin-actions .btn {
+        display: block;
+        width: 200px; /* Устанавливаем ширину кнопки */
+        padding: 20px; /* Добавляем пространство внутри кнопок */
+        text-align: center; /* Центрируем текст */
+        border-radius: 10px; /* Скругляем углы */
+        font-size: 1.2rem; /* Увеличиваем размер шрифта */
+        color: white;
+        background-color: #355c85; /* Цвет фона кнопок */
+        border: none; /* Убираем рамку */
+        transition: all 0.3s ease; /* Плавный переход для эффектов */
+    }
+
+    .admin-actions .btn:hover {
+        background-color: #0056b3; /* Цвет кнопки при наведении */
+        box-shadow: 0 4px 6px rgba(179, 121, 121, 0.2); /* Легкая тень при наведении */
+        transform: translateY(-2px); /* Поднимаем кнопку при наведении */
+    }
+
+    .admin-actions .btn:active {
+        background-color: #004085; /* Цвет кнопки при клике */
+        transform: translateY(0); /* Возвращаем кнопку в исходное положение */
+    }
+
+    .reviews-list {
+        border-top: 1px solid #ccc;
+        padding-top: 20px;
+    }
+
+    .review-item {
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid rgba(158, 106, 137, 0.84);
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+{% endblock %}

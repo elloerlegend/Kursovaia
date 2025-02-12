@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Зоомузей{% endblock %}</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Контейнер для кнопок */
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        /* Стили кнопок */
+        .nav-button {
+            padding: 20px;
+            background-color: #abdac8;
+            border: 2px solid #2d6352;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #2d6352;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .nav-button:hover {
+            background-color: #8cc0a9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Панель пользователя */
+        .user-panel {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .user-button {
+            padding: 10px 20px;
+            background-color: #6489b5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-button:hover {
+            background-color: #4a6c8f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Зоологический музей!</h1>
+        <p>Здесь вы можете узнать о наших экспонатах и записаться на предстоящие мероприятия.</p>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Панель пользователя -->
+        <div class="user-panel">
+            {% if current_user.is_authenticated %}
+                <span>Привет, {{ current_user.username }}!</span>
+                <a href="{{ url_for('profile') }}" class="user-button">Профиль</a>
+                <a href="{{ url_for('logout') }}" class="user-button">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="user-button">Войти</a>
+                <a href="{{ url_for('register') }}" class="user-button">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </footer>
+</body>
+</html>

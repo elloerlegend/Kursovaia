@@ -1,0 +1,6 @@
+<h3>История посещений:</h3>
+<ul>
+    {% for visit in visit_history %}
+        <li>Вы посетили: {{ visit.event.title }} - {{ visit.date_visited }}</li>
+    {% endfor %}
+</ul>

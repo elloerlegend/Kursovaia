@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Зоологический музей</title>
+    <style>
+        /* Базовые стили для кнопок */
+        .button-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background: #73ca7a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: 2px solid #45a049;
+        }
+
+        .nav-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .user-panel {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добро пожаловать в Зоологический музей!</h1>
+    <p>Здесь вы можете узнать о наших экспонатах и записаться на предстоящие мероприятия.</p>
+
+    <div class="button-container">
+        <!-- Основные кнопки для всех -->
+        <a href="{{ url_for('exhibits') }}" class="nav-button">Список экспонатов</a>
+        <a href="{{ url_for('events') }}" class="nav-button">Список мероприятий</a>
+
+        <!-- Кнопки только для администратора -->
+        {% if current_user.is_authenticated and current_user.is_admin %}
+            <a href="{{ url_for('add_exhibit') }}" class="nav-button">Добавить экспонат</a>
+            <a href="{{ url_for('add_event') }}" class="nav-button">Добавить мероприятие</a>
+        {% endif %}
+    </div>
+
+    <div class="user-panel">
+        {% if current_user.is_authenticated %}
+            <p>Привет, {{ current_user.username }}!</p>
+            <a href="{{ url_for('profile') }}" class="nav-button">Профиль</a>
+            <a href="{{ url_for('logout') }}" class="nav-button">Выйти</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="nav-button">Войти</a>
+            <a href="{{ url_for('register') }}" class="nav-button">Зарегистрироваться</a>
+        {% endif %}
+    </div>
+</body>
+</html>
