@@ -13,7 +13,7 @@ db = SQLAlchemy()
 # Подключаем SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///museum.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your_secret_key'  # Используй уникальный ключ для безопасности
+app.config['SECRET_KEY'] = 'ABC123'  # Используй уникальный ключ для безопасности
 
 db = SQLAlchemy(app)
 
@@ -237,7 +237,7 @@ def login():
 @login_required
 def profile():
     # Получаем список экспонатов из базы данных
-    exhibits = Exhibit.query.all()  # Убедитесь, что используется правильная модель
+    exhibits = Exhibit.query.all()  # Проверка на модель
 
     # Получаем список событий и проверяем, записан ли пользователь
     events = Event.query.all()
@@ -254,7 +254,7 @@ def profile():
     return render_template(
         'profile.html',
         user=current_user,
-        exhibits=exhibits,  # Убедитесь, что передаете экспонаты
+        exhibits=exhibits,  # Проверка передачи модели
         events=events,
         visit_history=visit_history
     )
