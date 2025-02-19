@@ -58,19 +58,7 @@ class User(db.Model, UserMixin):  # Добавляем UserMixin для Flask-Lo
     def __repr__(self):
         return f'<User {self.username}>'
 
-    # Обязательные методы для Flask-Login
-    def is_active(self):
-        return True  # Пользователь активен (если хотите добавить проверку, можно вернуть False для неактивных пользователей)
-
-    def get_id(self):
-        return str(self.id)  # Возвращает ID пользователя как строку
-
-    def is_authenticated(self):
-        return True  # Если пользователь аутентифицирован (можно изменить логику, если необходимо)
-
-    def is_anonymous(self):
-        return False  # Если пользователь не анонимный
-
+   
 
 # Модель для отзывов
 class Review(db.Model):
